@@ -1,0 +1,117 @@
+:root {
+    --primary-dark-cyan :  hsl(180, 29%, 50%);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: 'League Spartan', sans-serif;
+}
+
+#wrapper {
+    background-color: hsl(180, 52%, 96%);
+    width: 100vw;
+    height: auto
+}
+header img {
+    width: 100%;
+    height: 20vh;
+    background-color: hsl(180, 29%, 50%)
+}
+
+.list-of-jobs {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem 0rem;
+    
+}
+.job-offert {
+    background-color: white;
+    margin-top: 1em;
+    display: flex;
+    padding: 1em;
+    box-shadow: 8px 11px 22px -16px hsl(180, 29%, 50%)
+}
+.job-offert-left-section {
+    flex-grow: 1;
+    width: 50%;
+}
+.job-offert-left-section img{
+    float: left;
+    margin-right: 1em;
+}
+.job-offert-right-section {
+    
+    display: flex;
+    justify-content: flex-end;
+}
+.job-offert-right-section ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 10px;
+    padding-right: 1em;
+} 
+/* .job-offert-right-section ul li {
+    background-color: hsl(180, 52%, 96%);
+    padding: 0.5em;
+    border-radius: 0.4em;
+    color: hsl(180, 29%, 50%);
+    font-weight: 700;
+} */
+.job-offert-right-section ul li button {
+    background-color: hsl(180, 52%, 96%);
+    padding: 0.7em;
+    border: 1px none ;
+    border-radius: 0.3rem;
+    color: hsl(180, 29%, 50%);
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+.job-offert-right-section ul li button:hover {
+    background-color: hsl(180, 29%, 50%);
+    color: white;
+
+}
+
+.company-name {
+    padding-top: 0.5rem;
+    color: hsl(180, 29%, 50%);
+    margin-bottom: 0.7rem;
+}
+
+.job-title {
+    margin-bottom: 0.6rem;
+    font-size: 1.2rem;
+
+}
+
+.job-offert-left-section ul  {
+    display: flex;
+
+}
+.job-offert-left-section ul li {
+    margin-right: 0.5rem;
+    list-style: none;
+    color: rgb(143, 142, 142);
+}
+
+#job-info-list li::after {
+    display: inline-block;
+    content: "";
+    height: 3px;
+    width: 3px;
+    background-color: rgb(143, 142, 142);
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+#job-info-list li:last-child::after {
+    display: none;
+}
