@@ -2,16 +2,6 @@ import { jobListingJSON } from "./data.js";
 
 const jobOffertsContainer = document.querySelector(".list-of-jobs")
 
-function connectFilterButtons(elem) {
-    let tools = elem.tools
-    let languages = elem.languages
-    let role = [elem.role]
-    let level = elem.level
-    let toolsWithLanguages = role.concat(level,languages,tools);
-    return toolsWithLanguages
-}
-let allJobs = []
-let filtered = []
 function renderList(data) {
     // renderuje job-containery oraz lewą część każdego wiersza
 
@@ -32,75 +22,103 @@ function renderList(data) {
                 <li>${elem.contract}</li>
                 <li>${elem.location}</li>
                 </ul>
-            </div>`
+            </div>
+            <div class="job-offert-right-section">
+            <ul>
+              <button class="btn">${elem.level}</button>
+              <button class="btn">${elem.role}</button>
+              ${createLangs(elem.languages)}
+              ${createTools(elem.tools)}
+            </ul>
+          </div>
+          `
 
     jobOffertsContainer.appendChild(createDiv)
 
-    // łączę ze sobą toolsy,laguages,role,level aby wyświetlić je w całości po prawej stronie job-containera
-    // let tools = elem.tools
-    // let languages = elem.languages
-    // let role = [elem.role]
-    // let level = elem.level
-    // let toolsWithLanguages = role.concat(level,languages,tools);
-    // tworzę liste     
-    let createRightSection = document.createElement("div")
-    let createRightList = document.createElement("ul")
-    connectFilterButtons(elem).forEach(elem => {
-        let createListItems = document.createElement("li")
-        let createButton = document.createElement("button")
-        createButton.classList.add("btn-item")
-        
-        createButton.innerHTML = elem
-        createListItems.appendChild(createButton)
-        createRightList.appendChild(createListItems)
     })
-
-    createRightSection.classList.add("job-offert-right-section")
-    createRightSection.appendChild(createRightList)
-    createDiv.appendChild(createRightSection)
-    })
-    return allJobs = document.querySelectorAll(".job-offert")
-    
-}
-const deleteList = () => {
-    jobOffertsContainer.innerHTML = ""
     
 }
 
-
-const makeFilteredList = () => {
-    let filterOptions = document.querySelector(".list-of-jobs")
-    // Array.from(allJobs)
-    allJobs = Array.from(allJobs)
-    filterOptions.addEventListener("click", (e) => {
-        let target = e.target
-        if((e.target.classList == "btn-item") && !filtered.includes(e.target.innerText)) {
-             filtered.push(e.target.innerText)
-             filter()
-             
-             
-        }
-        else if (e.target.classList == "btn-item" || filtered.includes(e.target.innerText)) {
-            filtered = filtered.filter(e => e !== target.innerText )
-            
-            
-        }
-    })
-    return filtered
-}
-
-
-const filter = () => {
-    let filteredData = []
-    let jobListing = Array.from(jobListingJSON)
-    jobListing.forEach(elem => {
-        if(filtered.includes(elem.role))  {
-        deleteList()
-        filteredData.push(elem)
-        }
-    })
-    return renderList(filteredData)
-}
+const createLangs = (langs)=>{
+    let langsList="";
+    langs.forEach((lang)=>{
+        langsList += `<button class="btn">${lang}</button>`;
+    });
+    return langsList;
+};
+const createTools = (tool)=>{
+    let toolsList="";
+    tool.forEach((lang)=>{
+        toolsList += `<button class="btn">${lang}</button>`;
+    });
+    return toolsList;
+};
 
 renderList(jobListingJSON)
-makeFilteredList()
+
+let listOfFIlters = []
+
+const filterOptions = () => {
+    let listOfJobs = document.querySelector(".list-of-jobs")
+    listOfJobs.addEventListener("click", (e) => {
+        if((e.target.classList=="btn") && (!listOfFIlters.includes(e.target.innerText))) {
+            listOfFIlters.push(e.target.innerText)
+            searchBar()
+            showFiltered()
+        }
+       
+    })
+    return listOfFIlters
+}
+
+const searchBar = () => {
+    let createButton = document.createElement("button")
+    let searchBar = document.querySelector(".search-bar")
+
+    filterOptions().forEach(elem => {
+        createButton
+        createButton.innerText = elem
+        createButton.classList = "btn-remove"
+        searchBar.appendChild(createButton)
+    })
+}
+
+const deleteFilterOption = () => {
+    let searchBar = document.querySelector(".search-bar")
+    let listOfJobs = document.querySelectorAll(".job-offert")
+    searchBar.addEventListener("click", e => {
+        if(e.target.classList == "btn-remove") {
+        listOfFIlters = listOfFIlters.filter(elem => elem !== e.target.innerText)
+        e.target.remove()
+        
+    }
+    })
+
+}
+
+const showFiltered = () => {
+    let listOfJobs = document.querySelectorAll(".job-offert")
+       listOfJobs.forEach(job => {
+        let datas = [job.dataset.role, job.dataset.level, ...job.dataset.languages.split(","), ...job.dataset.tools.split(",")]
+        datas = datas.filter(v => v != '')
+        listOfFIlters
+        // console.log(...listOfFIlters)
+        // console.log(datas)
+        // console.log(datas.some(item => listOfFIlters.includes(item)))
+        // if(!datas.some(item => listOfFIlters.includes(item))) {
+        //     job.classList.add("hidden")
+        //     return datas
+        // }
+        // listOfFIlters[listOfFIlters.length]
+        if(!datas.includes(listOfFIlters[listOfFIlters.length-1])) {
+            job.classList.add("hidden")
+        }
+        // else if(datas.includes(...listOfFIlters)){
+        //     console.log(listOfFIlters[listOfFIlters.length-1])
+        // }
+        
+
+})
+}
+ filterOptions()
+ deleteFilterOption()
