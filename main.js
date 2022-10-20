@@ -1,10 +1,13 @@
 import { jobListingJSON } from "./data.js";
 
 const jobOffertsContainer = document.querySelector(".list-of-jobs")
+const searchBar = document.querySelector(".search-bar")
+const clearButton = document.querySelector(".clear")
+let listOfFIlters = []
+
 
 function renderList(data) {
-    // renderuje job-containery oraz lewą część każdego wiersza
-    data.forEach((elem, i) => {
+    data.forEach(elem => {
         let createDiv = document.createElement("div")
         createDiv.dataset.role=elem.role
         createDiv.dataset.level=elem.level
@@ -12,25 +15,26 @@ function renderList(data) {
         createDiv.dataset.tools=elem.tools
         createDiv.classList.add("job-offert")
         createDiv.innerHTML =  
-                `<div class="job-offert-left-section">
+        `
+            <div class="job-offert-left-section">
                 <img src="${elem.logo}" alt="company-logo">
                 <h2 class="company-name">${elem.company}</h2>
                 <h1 class="job-title">${elem.position}</h1>
                 <ul id="job-info-list">
-                <li>${elem.postedAt}</li>
-                <li>${elem.contract}</li>
-                <li>${elem.location}</li>
+                    <li>${elem.postedAt}</li>
+                    <li>${elem.contract}</li>
+                    <li>${elem.location}</li>
                 </ul>
             </div>
             <div class="job-offert-right-section">
-            <ul>
-              <button class="btn">${elem.level}</button>
-              <button class="btn">${elem.role}</button>
-              ${createLangs(elem.languages)}
-              ${createTools(elem.tools)}
-            </ul>
-          </div>
-          `
+                <ul>
+                <button class="btn">${elem.level}</button>
+                <button class="btn">${elem.role}</button>
+                ${createLangs(elem.languages)}
+                ${createTools(elem.tools)}
+                </ul>
+            </div>
+        `
 
     jobOffertsContainer.appendChild(createDiv)
     })
@@ -40,94 +44,103 @@ const createLangs = (langs)=>{
     let langsList=""
     langs.forEach((lang)=>{
         langsList += `<button class="btn">${lang}</button>`
-    });
+    })
     return langsList
 }
 
-const createTools = (tool)=>{
+const createTools = (tools)=>{
     let toolsList=""
-    tool.forEach((lang)=>{
-        toolsList += `<button class="btn">${lang}</button>`
-    });
+    tools.forEach((tool)=>{
+        toolsList += `<button class="btn">${tool}</button>`
+    })
     return toolsList
 }
 
-renderList(jobListingJSON)
-
-let listOfFIlters = []
-
-const filterOptions = () => {
-    let listOfJobs = document.querySelector(".list-of-jobs")
-    listOfJobs.addEventListener("click", (e) => {
+const createFilterList = () => {
+    jobOffertsContainer.addEventListener("click", (e) => {
         if((e.target.classList=="btn") && (!listOfFIlters.includes(e.target.innerText))) {
             listOfFIlters.push(e.target.innerText)
-            searchBar()
+            createSearchMenuButtons()
             showFiltered()
+
         }
     })
     return listOfFIlters
 }
-const searchBar = () => {
+const createSearchMenuButtons = () => {
     let createButton = document.createElement("button")
-    let searchBar = document.querySelector(".search-bar")
-
-    filterOptions().forEach(elem => {
-        createButton
+    createFilterList().forEach(elem => {
+        
         createButton.innerText = elem
         createButton.classList = "btn-remove"
         searchBar.appendChild(createButton)
     })
 }
 
-const deleteFilterOption = () => {
-    let jobsContainer = document.querySelector(".list-of-jobs")
-    let searchBar = document.querySelector(".search-bar")
+const deleteFilter = () => {
     searchBar.addEventListener("click", e => {
-    let listOfJobs = document.querySelectorAll(".job-offert")
+        let listOfJobs = document.querySelectorAll(".job-offert")
         if(e.target.classList == "btn-remove") {
         listOfFIlters = listOfFIlters.filter(elem => elem !== e.target.innerText)
         e.target.remove()
+        showHideSearchBar()
         if(listOfFIlters.length === 0) {
-            jobsContainer.innerHTML = ""
+            jobOffertsContainer.innerHTML = ""
             renderList(jobListingJSON)
         }
         else {
-        listOfJobs.forEach((job, i) => {
+        listOfJobs.forEach(job  => {
             let datas = [job.dataset.role, job.dataset.level, ...job.dataset.languages.split(","), ...job.dataset.tools.split(",")]
             datas = datas.filter(v => v != '')
-            datas.sort()
-            listOfFIlters.sort()
-            let redc = []
-            redc = listOfFIlters.filter(element => datas.includes(element))
-            redc.sort()
-            console.log(redc)
-            console.log(listOfFIlters)
-            console.log(i)
+            let redc = listOfFIlters.filter(element => datas.includes(element))
             if(redc.length === listOfFIlters.length) {
-                console.log("true")
                 job.classList.remove("hidden")
-            }
-            })
-    }
-}
-    }
-    )
-    }
-
-const showFiltered = () => {
-    let listOfJobs = document.querySelectorAll(".job-offert")
-       listOfJobs.forEach(job => {
-        let datas = [job.dataset.role, job.dataset.level, ...job.dataset.languages.split(","), ...job.dataset.tools.split(",")]
-        datas = datas.filter(v => v != '')
-        listOfFIlters
-        if(listOfFIlters.length > 0) {
-            for(let i = 0; i < listOfFIlters.length; i++){
-                if(!datas.includes(listOfFIlters[i])) {
-                    job.classList.add("hidden")
-                }
+                    }
+                })
             }
         }
-})
+    })
 }
- filterOptions()
- deleteFilterOption()
+
+const showFiltered = () => {
+    showHideSearchBar()
+    let listOfJobs = document.querySelectorAll(".job-offert")
+    listOfJobs.forEach(job => {
+        let datas = [job.dataset.role, 
+                    job.dataset.level, 
+                    ...job.dataset.languages.split(","), 
+                    ...job.dataset.tools.split(",")]
+
+        datas = datas.filter(v => v != '')
+        
+        if(listOfFIlters.length > 0) {
+            for(let i = 0; i < listOfFIlters.length; i++){
+                    !datas.includes(listOfFIlters[i]) ? job.classList.add("hidden") : ""
+            }
+        }
+    })
+}
+
+const showHideSearchBar = () => {
+    console.log(searchBar.childElementCount)
+    searchBar.childElementCount  === 1 ? searchBar.classList.add("hidden") : searchBar.classList.remove("hidden")
+
+}
+const reset = () => {
+    jobOffertsContainer.innerHTML = ""
+    renderList(jobListingJSON)
+    listOfFIlters = []
+    let deleteButtons = searchBar.querySelectorAll(".btn-remove")
+    deleteButtons.forEach(btn => btn.remove())
+    showHideSearchBar()
+}
+
+clearButton.addEventListener("click", reset)
+
+
+
+
+renderList(jobListingJSON)
+createFilterList()
+deleteFilter()
+showHideSearchBar()

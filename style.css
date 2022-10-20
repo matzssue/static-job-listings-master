@@ -9,17 +9,18 @@
     font-size: 16px;
     font-family: 'League Spartan', sans-serif;
 }
-
+body {
+    background-color: hsl(180, 52%, 96%);
+}
 #wrapper {
     background-color: hsl(180, 52%, 96%);
     width: 100vw;
-    height: auto
+    height: auto;
 }
 header img {
     width: 100%;
     height: 20vh;
     background-color: hsl(180, 29%, 50%);
-    position: relative;
 }
 
 .list-of-jobs {
@@ -123,13 +124,16 @@ header img {
     border-radius: 0.3em;
     margin-left: auto;
     margin-right: auto;
-    height: 100px;
+    
+    height: 80px;
     width: 70%;
     background-color: white;
     padding: 1em;
+    opacity: 1; 
+    transition: all 0.5s ease-in;
     position: absolute;
-    top: 100px;
-    left: 16%;
+    left: 15%;
+    top: 15%;
     
 }
 .search-bar button {
@@ -141,7 +145,26 @@ header img {
     font-weight: 700;
     font-size: 0.8rem;
     cursor: pointer;
+    
+    
 }
 .hidden {
-    display: none !important
+    display: none;
 }
+
+ .search-bar button.clear {
+   margin-left: auto;
+   background-color: white;
+   padding: 0;
+   cursor: pointer;
+   font-size: 1em;
+   
+}
+.search-bar button.clear:hover {
+    text-decoration: underline;
+ }
+.search-bar.hidden {
+    display: flex;
+    opacity: 0;
+    transition: all 0.5s ease-in;
+} 
