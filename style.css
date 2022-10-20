@@ -59,13 +59,7 @@ header img {
     gap: 10px;
     padding-right: 1em;
 } 
-/* .job-offert-right-section ul li {
-    background-color: hsl(180, 52%, 96%);
-    padding: 0.5em;
-    border-radius: 0.4em;
-    color: hsl(180, 29%, 50%);
-    font-weight: 700;
-} */
+
 .job-offert-right-section ul button {
     background-color: hsl(180, 52%, 96%);
     padding: 0.7em;
@@ -124,7 +118,6 @@ header img {
     border-radius: 0.3em;
     margin-left: auto;
     margin-right: auto;
-    
     height: 80px;
     width: 70%;
     background-color: white;
@@ -137,28 +130,52 @@ header img {
     
 }
 .search-bar button {
-    padding: 1em;
+    background-color: hsl(180, 52%, 96%);
+    padding-left: 1em;
     margin-left: 1em;
     border: 1px none ;
     border-radius: 0.3rem;
     color: hsl(180, 29%, 50%);
     font-weight: 700;
     font-size: 0.8rem;
-    cursor: pointer;
-    
+    cursor: pointer;  
+}
+.btn-remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-remove svg {
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    margin-left: 15px;
+    box-sizing: content-box;
+    padding: 4px;
+    border: 4px solid hsl(180, 29%, 50%);
+    border-radius: 3px;
+    background-color: hsl(180, 29%, 50%);;
+}
+.btn-remove svg:hover {
+    border: 4px solid hsl(180, 14%, 20%);
+    background-color: hsl(180, 14%, 20%);
+}
+.delete-icon {
+    fill: white;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
     
 }
 .hidden {
     display: none;
 }
-
  .search-bar button.clear {
-   margin-left: auto;
-   background-color: white;
-   padding: 0;
-   cursor: pointer;
-   font-size: 1em;
-   
+    display: flex;
+    order: 15;
+    background-color: white;
+    padding: 0;
+    cursor: pointer;
+    font-size: 1em;
 }
 .search-bar button.clear:hover {
     text-decoration: underline;
@@ -168,3 +185,10 @@ header img {
     opacity: 0;
     transition: all 0.5s ease-in;
 } 
+.clear-button {
+    order: 155;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row-reverse;
+    
+}
