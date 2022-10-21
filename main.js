@@ -16,8 +16,10 @@ function renderList(data) {
     createDiv.innerHTML = `
             <div class="job-offert-left-section">
                 <img src="${elem.logo}" alt="company-logo">
-                <h2 class="company-name">${elem.company}</h2>
-                <h1 class="job-title">${elem.position}</h1>
+                <h1 class="company-name">${elem.company}${addNew(
+      elem.new
+    )}${addFeatured(elem.featured)}</h1>
+                <h2 class="job-title">${elem.position}</h2>
                 <ul id="job-info-list">
                     <li>${elem.postedAt}</li>
                     <li>${elem.contract}</li>
@@ -53,6 +55,14 @@ const createTools = (tools) => {
     toolsList += `<button class="btn">${tool}</button>`;
   });
   return toolsList;
+};
+
+const addNew = (job) => {
+  return job === true ? `<span class="new">NEW!</span>` : "";
+};
+
+const addFeatured = (featured) => {
+  return featured === true ? `<span class="featured">FEATURED</span>` : "";
 };
 
 const createFilterList = () => {

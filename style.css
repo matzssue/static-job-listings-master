@@ -40,7 +40,7 @@ header img {
 }
 .job-offert-left-section {
   flex-grow: 1;
-  width: 50%;
+  width: auto;
 }
 .job-offert-left-section img {
   float: left;
@@ -74,6 +74,9 @@ header img {
 }
 
 .company-name {
+  max-width: 40%;
+  display: flex;
+  margin-left: 1em;
   padding-top: 0.5rem;
   color: hsl(180, 29%, 50%);
   margin-bottom: 0.7rem;
@@ -82,6 +85,40 @@ header img {
 .job-title {
   margin-bottom: 0.6rem;
   font-size: 1.2rem;
+}
+.job-title:hover {
+  color: hsl(180, 29%, 50%);
+}
+.new {
+  padding: 0.1em;
+  margin-top: -0.15em;
+  border-left: 0.4em solid hsl(180, 29%, 50%);
+  border-right: 0.4em solid hsl(180, 29%, 50%);
+  border-top: 0.3em solid hsl(180, 29%, 50%);
+  border-bottom: 0.2em solid hsl(180, 29%, 50%);
+  border-radius: 1em;
+  width: auto;
+  background-color: hsl(180, 29%, 50%);
+  margin-left: 1em;
+  color: white;
+  font-weight: 100;
+  font-size: 0.9em;
+}
+.featured {
+  margin-left: 0.2em;
+  padding: 0.1em;
+  margin-top: -0.15em;
+  border-left: 0.4em solid rgb(27, 27, 27);
+  border-right: 0.4em solid rgb(27, 27, 27);
+  border-top: 0.3em solid rgb(27, 27, 27);
+  border-bottom: 0.2em solid rgb(27, 27, 27);
+  border-radius: 1em;
+  width: auto;
+  background-color: rgb(27, 27, 27);
+  margin-left: 1em;
+  color: white;
+  font-weight: 100;
+  font-size: 0.9em;
 }
 
 .job-offert-left-section ul {
